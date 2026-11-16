@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: senim39-gymnasium
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -u app.py
+    healthCheckPath: /health
+    disk:
+      name: senim39-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DB_PATH
+        value: /var/data/senim39.sqlite3
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: RETENTION_DAYS
+        value: "365"
+      - key: BOT_TOKEN
+        sync: false
+      - key: TEACHER_CHAT_IDS
+        sync: false
+      - key: BASE_URL
+        sync: false
